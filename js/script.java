@@ -11,6 +11,22 @@ completed.forEach(id => {
   }
 });
 
+/* EVOLUÇÃO DA FOTO FINAL */
+
+const finalPhoto = document.getElementById("finalPhoto");
+
+if(completed.length >= 1){
+  finalPhoto.style.opacity = "0.7";
+}
+
+if(completed.length >= 2){
+  finalPhoto.style.filter = "grayscale(40%)";
+}
+
+if(completed.length >= 3){
+  finalPhoto.classList.add("active");
+}
+
 /* DESBLOQUEAR FINAL */
 
 if(completed.length >= 3){
