@@ -58,11 +58,17 @@
 
   <script>
 
+    window.addEventListener("beforeunload", () => {
+
+  sessionStorage.clear();
+
+});
+
     /* CARREGAR */
 
-    const h1 = localStorage.getItem("heart1");
-    const h2 = localStorage.getItem("heart2");
-    const h3 = localStorage.getItem("heart3");
+    const h1 = sessionStorage.getItem("heart1");
+    const h2 = sessionStorage.getItem("heart2");
+    const h3 = sessionStorage.getItem("heart3");
 
     /* CORAÇÕES */
 
