@@ -8,42 +8,73 @@
 
   <style>
 
-  html,
-  body{
+html,
+body{
 
-    margin:0;
-    padding:0;
+  margin:0;
+  padding:0;
 
-    width:100%;
-    height:100%;
+  width:100vw;
+  height:100vh;
 
-    overflow:hidden;
+  overflow:hidden;
 
-    background:black;
-  }
+  background:black;
+}
 
-  .game-body{
+.game-body{
 
-    position:fixed;
+  width:100vw;
+  height:100vh;
 
-    inset:0;
+  overflow:hidden;
 
-    overflow:hidden;
+  position:relative;
+}
 
-    background:black;
-  }
+#heart{
 
-  #heart{
+  position:absolute;
 
-    position:absolute;
+  font-size:70px;
 
-    font-size:70px;
+  left:100px;
+  top:100px;
 
-    left:100px;
-    top:100px;
+  color:red;
 
-    user-select:none;
-  }
+  z-index:10;
+}
+
+#timer{
+
+  position:absolute;
+
+  top:30px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  color:white;
+
+  font-size:40px;
+}
+
+#backLink{
+
+  position:absolute;
+
+  top:50%;
+  left:50%;
+
+  transform:translate(-50%, -50%);
+
+  color:white;
+
+  font-size:35px;
+
+  display:none;
+}
 
   </style>
 
