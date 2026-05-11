@@ -96,60 +96,53 @@ body{
 
   </a>
 
-  <script>
+<script>
 
-    const heart =
-      document.getElementById("heart");
+const heart =
+  document.getElementById("heart");
 
-    const timer =
-      document.getElementById("timer");
+const timer =
+  document.getElementById("timer");
 
-    const backLink =
-      document.getElementById("backLink");
+const backLink =
+  document.getElementById("backLink");
 
-    /* ID */
+/* ID */
 
-    const params =
-      new URLSearchParams(window.location.search);
+const params =
+  new URLSearchParams(window.location.search);
 
-    const heartId =
-      params.get("heart");
+const heartId =
+  params.get("heart");
 
-    /* MOVIMENTO */
+/* POSIÇÃO */
 
-    let x = 100;
-    let y = 100;
+let x = 100;
+let y = 100;
 
-    let vx = 8;
-    let vy = 8;
+let vx = 6;
+let vy = 6;
 
-    let moving = true;
+let moving = true;
+
+/* MOVIMENTO */
 
 function animate(){
 
   if(moving){
 
-    const rect =
-      heart.getBoundingClientRect();
+    const width =
+      window.innerWidth;
 
-    const heartWidth =
-      rect.width;
+    const height =
+      window.innerHeight;
 
-    const heartHeight =
-      rect.height;
-
-    const maxX =
-      document.documentElement.clientWidth
-      - heartWidth;
-
-    const maxY =
-      document.documentElement.clientHeight
-      - heartHeight;
+    const size = 70;
 
     x += vx;
     y += vy;
 
-    /* COLISÃO */
+    /* BORDAS */
 
     if(x <= 0){
 
@@ -158,9 +151,9 @@ function animate(){
 
     }
 
-    if(x >= maxX){
+    if(x >= width - size){
 
-      x = maxX;
+      x = width - size;
       vx *= -1;
 
     }
@@ -172,9 +165,9 @@ function animate(){
 
     }
 
-    if(y >= maxY){
+    if(y >= height - size){
 
-      y = maxY;
+      y = height - size;
       vy *= -1;
 
     }
@@ -186,39 +179,90 @@ function animate(){
   requestAnimationFrame(animate);
 }
 
-    function stop(){
+animate();
 
-      if(seconds < 5){
+/* TIMER */
 
-        clearInterval(interval);
+let seconds = 0;
 
-        moving = true;
+let interval;
 
-        timer.innerHTML = "0";
-      }
+/* SEGURAR */
+
+function startHold(e){
+
+  e.preventDefault();
+
+  moving = false;
+
+  seconds = 0;
+
+  timer.innerHTML = "0";
+
+  interval = setInterval(() => {
+
+    seconds++;
+
+    timer.innerHTML = seconds;
+
+    if(seconds >= 5){
+
+      clearInterval(interval);
+
+      sessionStorage.setItem(
+        "heart" + heartId,
+        "true"
+      );
+
+      heart.style.display = "none";
+
+      timer.style.display = "none";
+
+      backLink.style.display = "block";
     }
 
-    heart.addEventListener(
-      "mousedown",
-      start
-    );
+  }, 1000);
+}
 
-    heart.addEventListener(
-      "mouseup",
-      stop
-    );
+/* SOLTAR */
 
-    heart.addEventListener(
-      "touchstart",
-      start
-    );
+function stopHold(){
 
-    heart.addEventListener(
-      "touchend",
-      stop
-    );
+  if(seconds < 5){
 
-  </script>
+    clearInterval(interval);
+
+    moving = true;
+
+    timer.innerHTML = "0";
+  }
+}
+
+/* MOBILE */
+
+heart.addEventListener(
+  "touchstart",
+  startHold
+);
+
+heart.addEventListener(
+  "touchend",
+  stopHold
+);
+
+/* PC */
+
+heart.addEventListener(
+  "mousedown",
+  startHold
+);
+
+heart.addEventListener(
+  "mouseup",
+  stopHold
+);
+
+</script>
 
 </body>
 </html>
