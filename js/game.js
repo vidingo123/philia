@@ -2,18 +2,26 @@ const heart = document.getElementById("heart");
 const timerText = document.getElementById("timer");
 const backLink = document.getElementById("backLink");
 
+/* PEGAR ID */
+
 const params = new URLSearchParams(window.location.search);
 const heartId = params.get("heart");
+
+/* POSIÇÃO */
 
 let x = 100;
 let y = 100;
 
-let vx = 7;
-let vy = 7;
+let vx = 8;
+let vy = 8;
+
+/* CONTROLE */
 
 let moving = true;
 let holdTime = 0;
-let interval;
+let interval = null;
+
+/* MOVIMENTO */
 
 function moveHeart(){
 
@@ -44,15 +52,18 @@ function moveHeart(){
 
 moveHeart();
 
-/* SEGURAR */
+/* COMEÇAR */
 
-function startHolding(){
+function startHolding(e){
+
+  e.preventDefault();
 
   if(!moving) return;
 
   moving = false;
 
   holdTime = 0;
+
   timerText.textContent = "0";
 
   interval = setInterval(() => {
@@ -65,10 +76,7 @@ function startHolding(){
 
       clearInterval(interval);
 
-      heart.style.display = "none";
-      timerText.style.display = "none";
-
-      backLink.style.display = "block";
+      /* SALVAR PROGRESSO */
 
       let completed = JSON.parse(localStorage.getItem("completed")) || [];
 
@@ -77,10 +85,21 @@ function startHolding(){
       }
 
       localStorage.setItem("completed", JSON.stringify(completed));
+
+      /* ESCONDER */
+
+      heart.style.display = "none";
+      timerText.style.display = "none";
+
+      /* MOSTRAR VOLTAR */
+
+      backLink.style.display = "block";
     }
 
   }, 1000);
 }
+
+/* SOLTAR */
 
 function stopHolding(){
 
@@ -94,7 +113,12 @@ function stopHolding(){
   }
 }
 
-heart.addEventListener("mousedown", startHolding);
-heart.addEventListener("mouseup", stopHolding);
+/* MOBILE */
+
 heart.addEventListener("touchstart", startHolding);
 heart.addEventListener("touchend", stopHolding);
+
+/* PC */
+
+heart.addEventListener("mousedown", startHolding);
+heart.addEventListener("mouseup", stopHolding);
