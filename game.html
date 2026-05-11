@@ -57,18 +57,27 @@ function animate(){
 
   if(moving){
 
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    const rect =
+      heart.getBoundingClientRect();
 
-    const rect = heart.getBoundingClientRect();
+    const heartWidth =
+      rect.width;
 
-    const heartWidth = rect.width;
-    const heartHeight = rect.height;
+    const heartHeight =
+      rect.height;
+
+    const maxX =
+      document.documentElement.clientWidth
+      - heartWidth;
+
+    const maxY =
+      document.documentElement.clientHeight
+      - heartHeight;
 
     x += vx;
     y += vy;
 
-    /* LIMITES */
+    /* COLISÃO */
 
     if(x <= 0){
 
@@ -77,9 +86,9 @@ function animate(){
 
     }
 
-    if(x + heartWidth >= w){
+    if(x >= maxX){
 
-      x = w - heartWidth;
+      x = maxX;
       vx *= -1;
 
     }
@@ -91,9 +100,9 @@ function animate(){
 
     }
 
-    if(y + heartHeight >= h){
+    if(y >= maxY){
 
-      y = h - heartHeight;
+      y = maxY;
       vy *= -1;
 
     }
