@@ -89,16 +89,18 @@ body{
 }
 
 #heart{
-  position:absolute;
-  font-size:70px;
-  color:red;
+  position:fixed;
 
   left:100px;
   top:100px;
 
+  font-size:70px;
+
+  color:red;
+
   user-select:none;
 
-  image-rendering:pixelated;
+  z-index:999;
 }
 
 #timer{
