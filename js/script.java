@@ -1,26 +1,44 @@
 window.onload = () => {
 
-  let completed = JSON.parse(localStorage.getItem("completed")) || [];
+  const h1 = localStorage.getItem("heart_1");
+  const h2 = localStorage.getItem("heart_2");
+  const h3 = localStorage.getItem("heart_3");
 
-  console.log(completed);
+  /* CORAÇÃO 1 */
 
-  completed.forEach(id => {
+  if(h1 === "true"){
 
-    const heart = document.getElementById("c" + id);
+    document.getElementById("c1").innerHTML = "❤️";
 
-    if(heart){
+  }
 
-      heart.innerHTML = "❤️";
+  /* CORAÇÃO 2 */
 
-      heart.style.color = "red";
+  if(h2 === "true"){
 
-    }
+    document.getElementById("c2").innerHTML = "❤️";
 
-  });
+  }
+
+  /* CORAÇÃO 3 */
+
+  if(h3 === "true"){
+
+    document.getElementById("c3").innerHTML = "❤️";
+
+  }
+
+  /* FOTO FINAL */
 
   const finalPhoto = document.getElementById("finalPhoto");
 
-  if(completed.length >= 3){
+  /* DESBLOQUEAR */
+
+  if(
+    h1 === "true" &&
+    h2 === "true" &&
+    h3 === "true"
+  ){
 
     finalPhoto.style.filter = "grayscale(0%)";
 
