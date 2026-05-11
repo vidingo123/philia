@@ -63,13 +63,20 @@
         const w = window.innerWidth;
         const h = window.innerHeight;
 
-        if(x <= 0 || x >= w - 60){
-          vx *= -1;
-        }
+        const heartWidth = heart.offsetWidth;
+const heartHeight = heart.offsetHeight;
 
-        if(y <= 0 || y >= h - 60){
-          vy *= -1;
-        }
+/* LADOS */
+
+if(x <= 0 || x + heartWidth >= w){
+  vx *= -1;
+}
+
+/* TOPO E BAIXO */
+
+if(y <= 0 || y + heartHeight >= h){
+  vy *= -1;
+}
 
         heart.style.left = x + "px";
         heart.style.top = y + "px";
