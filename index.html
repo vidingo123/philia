@@ -58,69 +58,65 @@
 
   <script>
 
-    /* CARREGAR */
+  const h1 = sessionStorage.getItem("heart1");
+  const h2 = sessionStorage.getItem("heart2");
+  const h3 = sessionStorage.getItem("heart3");
 
-    const h1 = sessionStorage.getItem("heart1");
-    const h2 = sessionStorage.getItem("heart2");
-    const h3 = sessionStorage.getItem("heart3");
+  /* FOTO 1 */
 
-    /* CORAÇÕES */
+  if(h1){
 
-    if(h1){
-      document.getElementById("c1").innerHTML = "❤️";
-    }
+    document.getElementById("c1").innerHTML = "❤️";
 
-    if(h2){
-      document.getElementById("c2").innerHTML = "❤️";
-    }
+    document.querySelector("#photo1 img")
+      .style.filter = "grayscale(0%)";
 
-    if(h3){
-      document.getElementById("c3").innerHTML = "❤️";
-    }
-    
-/* COLORIR FOTOS */
+  }
 
-if(h1){
+  /* FOTO 2 */
 
-  document.querySelector("#photo1 img")
-    .style.filter = "grayscale(0%)";
+  if(h2){
 
-}
+    document.getElementById("c2").innerHTML = "❤️";
 
-if(h2){
+    document.querySelector("#photo2 img")
+      .style.filter = "grayscale(0%)";
 
-  document.querySelector("#photo2 img")
-    .style.filter = "grayscale(0%)";
+  }
 
-}
+  /* FOTO 3 */
 
-if(h3){
+  if(h3){
 
-  document.querySelector("#photo3 img")
-    .style.filter = "grayscale(0%)";
+    document.getElementById("c3").innerHTML = "❤️";
 
-}
-    
-    /* FOTO FINAL */
+    document.querySelector("#photo3 img")
+      .style.filter = "grayscale(0%)";
 
-    const finalPhoto =
-      document.getElementById("finalPhoto");
+  }
 
-    if(h1 && h2 && h3){
+  /* FOTO FINAL */
 
-      finalPhoto.style.filter = "grayscale(0%)";
+  const finalPhoto =
+    document.getElementById("finalPhoto");
 
-      finalPhoto.style.opacity = "1";
+  if(h1 && h2 && h3){
 
-      finalPhoto.style.cursor = "pointer";
+    finalPhoto.style.filter =
+      "grayscale(0%)";
 
-      finalPhoto.onclick = () => {
+    finalPhoto.style.opacity = "1";
 
-        window.location.href = "final.html";
+    finalPhoto.style.cursor = "pointer";
 
-      };
+    finalPhoto.onclick = () => {
 
-    }
+      window.location.href =
+        "final.html";
+
+    };
+
+  }
 
   </script>
 
