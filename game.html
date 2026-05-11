@@ -85,47 +85,57 @@ if(y <= 0 || y + heartHeight >= h){
       requestAnimationFrame(animate);
     }
 
-    animate();
+    function animate(){
 
-    /* SEGURAR */
+  if(moving){
 
-    let seconds = 0;
+    const heartSize =
+      heart.getBoundingClientRect();
 
-    let interval;
+    const maxX =
+      window.innerWidth - heartSize.width;
 
-    function start(){
+    const maxY =
+      window.innerHeight - heartSize.height;
 
-      moving = false;
+    x += vx;
+    y += vy;
 
-      seconds = 0;
+    /* COLISÃO */
 
-      interval = setInterval(() => {
+    if(x <= 0){
 
-        seconds++;
+      x = 0;
+      vx *= -1;
 
-        timer.innerHTML = seconds;
+    }
 
-        if(seconds >= 5){
+    if(x >= maxX){
 
-          clearInterval(interval);
+      x = maxX;
+      vx *= -1;
 
-          /* SALVAR */
+    }
 
-          sessionStorage.setItem(
-            "heart" + heartId,
-            "true"
-          );
+    if(y <= 0){
 
-          /* ESCONDER */
+      y = 0;
+      vy *= -1;
 
-          heart.style.display = "none";
+    }
 
-          timer.style.display = "none";
+    if(y >= maxY){
 
-          backLink.style.display = "block";
-        }
+      y = maxY;
+      vy *= -1;
 
-      }, 1000);
+    }
+
+    heart.style.left = x + "px";
+    heart.style.top = y + "px";
+  }
+
+  requestAnimationFrame(animate);
     }
 
     function stop(){
