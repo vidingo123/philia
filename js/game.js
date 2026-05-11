@@ -2,12 +2,9 @@ const heart = document.getElementById("heart");
 const timerText = document.getElementById("timer");
 const backLink = document.getElementById("backLink");
 
-/* PEGAR ID */
-
 const params = new URLSearchParams(window.location.search);
-const heartId = params.get("heart");
 
-/* POSIÇÃO */
+const heartId = params.get("heart");
 
 let x = 100;
 let y = 100;
@@ -15,31 +12,30 @@ let y = 100;
 let vx = 8;
 let vy = 8;
 
-/* CONTROLE */
-
 let moving = true;
-let holdTime = 0;
-let interval = null;
+
+let timer = 0;
+let interval;
 
 /* MOVIMENTO */
 
-function moveHeart(){
+function animate(){
 
   if(moving){
+
+    x += vx;
+    y += vy;
 
     const w = window.innerWidth;
     const h = window.innerHeight;
 
     const size = heart.offsetWidth;
 
-    x += vx;
-    y += vy;
-
-    if(x + size >= w || x <= 0){
+    if(x <= 0 || x + size >= w){
       vx *= -1;
     }
 
-    if(y + size >= h || y <= 0){
+    if(y <= 0 || y + size >= h){
       vy *= -1;
     }
 
@@ -47,36 +43,32 @@ function moveHeart(){
     heart.style.top = y + "px";
   }
 
-  requestAnimationFrame(moveHeart);
+  requestAnimationFrame(animate);
 }
 
-moveHeart();
+animate();
 
-/* COMEÇAR */
+/* SEGURAR */
 
-function startHolding(e){
+function startHold(e){
 
   e.preventDefault();
 
-  if(!moving) return;
-
   moving = false;
 
-  holdTime = 0;
+  timer = 0;
 
-  timerText.textContent = "0";
+  timerText.innerHTML = "0";
 
   interval = setInterval(() => {
 
-    holdTime++;
+    timer++;
 
-    timerText.textContent = holdTime;
+    timerText.innerHTML = timer;
 
-    if(holdTime >= 5){
+    if(timer >= 5){
 
       clearInterval(interval);
-
-      /* SALVAR PROGRESSO */
 
       let completed = JSON.parse(localStorage.getItem("completed")) || [];
 
@@ -86,12 +78,9 @@ function startHolding(e){
 
       localStorage.setItem("completed", JSON.stringify(completed));
 
-      /* ESCONDER */
-
       heart.style.display = "none";
-      timerText.style.display = "none";
 
-      /* MOSTRAR VOLTAR */
+      timerText.style.display = "none";
 
       backLink.style.display = "block";
     }
@@ -101,24 +90,22 @@ function startHolding(e){
 
 /* SOLTAR */
 
-function stopHolding(){
+function stopHold(){
 
-  if(holdTime < 5){
+  if(timer < 5){
 
     clearInterval(interval);
 
     moving = true;
 
-    timerText.textContent = "0";
+    timerText.innerHTML = "0";
   }
 }
 
-/* MOBILE */
+heart.addEventListener("touchstart", startHold);
 
-heart.addEventListener("touchstart", startHolding);
-heart.addEventListener("touchend", stopHolding);
+heart.addEventListener("touchend", stopHold);
 
-/* PC */
+heart.addEventListener("mousedown", startHold);
 
-heart.addEventListener("mousedown", startHolding);
-heart.addEventListener("mouseup", stopHolding);
+heart.addEventListener("mouseup", stopHold);
