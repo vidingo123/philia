@@ -66,6 +66,9 @@ body{
 
 .filled{
   color:red;
+  filter:none;
+  opacity:1;
+  transform:scale(1.1);
 }
 
 /* GAME */
