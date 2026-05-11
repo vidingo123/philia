@@ -6,7 +6,7 @@ completed.forEach(id => {
   const heart = document.getElementById("c" + id);
 
   if(heart){
-    heart.textContent = "❤";
+    heart.innerHTML = "❤️";
     heart.classList.add("filled");
   }
 });
