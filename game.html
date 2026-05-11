@@ -53,55 +53,22 @@
 
     let moving = true;
 
-    function animate(){
-
-      if(moving){
-
-        x += vx;
-        y += vy;
-
-        const w = window.innerWidth;
-        const h = window.innerHeight;
-
-        const heartWidth = heart.offsetWidth;
-const heartHeight = heart.offsetHeight;
-
-/* LADOS */
-
-if(x <= 0 || x + heartWidth >= w){
-  vx *= -1;
-}
-
-/* TOPO E BAIXO */
-
-if(y <= 0 || y + heartHeight >= h){
-  vy *= -1;
-}
-
-        heart.style.left = x + "px";
-        heart.style.top = y + "px";
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    function animate(){
+function animate(){
 
   if(moving){
 
-    const heartSize =
-      heart.getBoundingClientRect();
+    const w = window.innerWidth;
+    const h = window.innerHeight;
 
-    const maxX =
-      window.innerWidth - heartSize.width;
+    const rect = heart.getBoundingClientRect();
 
-    const maxY =
-      window.innerHeight - heartSize.height;
+    const heartWidth = rect.width;
+    const heartHeight = rect.height;
 
     x += vx;
     y += vy;
 
-    /* COLISÃO */
+    /* LIMITES */
 
     if(x <= 0){
 
@@ -110,9 +77,9 @@ if(y <= 0 || y + heartHeight >= h){
 
     }
 
-    if(x >= maxX){
+    if(x + heartWidth >= w){
 
-      x = maxX;
+      x = w - heartWidth;
       vx *= -1;
 
     }
@@ -124,9 +91,9 @@ if(y <= 0 || y + heartHeight >= h){
 
     }
 
-    if(y >= maxY){
+    if(y + heartHeight >= h){
 
-      y = maxY;
+      y = h - heartHeight;
       vy *= -1;
 
     }
@@ -136,7 +103,7 @@ if(y <= 0 || y + heartHeight >= h){
   }
 
   requestAnimationFrame(animate);
-    }
+}
 
     function stop(){
 
