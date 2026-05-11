@@ -5,34 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Memórias</title>
-  
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
 
   <div class="timeline">
 
-    <a href="game.html?heart=1"
-   class="photo"
-   id="photo1">
+    <a href="game.html?heart=1" class="photo">
+      <img src="img/20260328_101205.jpg">
+    </a>
 
-  <img src="img/20260328_101205.jpg">
+    <a href="game.html?heart=2" class="photo">
+      <img src="img/20260328_101155.jpg">
+    </a>
 
-</a>
-
-<a href="game.html?heart=2"
-   class="photo"
-   id="photo2">
-
-  <img src="img/20260328_101155.jpg">
-
-</a>
-
-<a href="game.html?heart=3"
-   class="photo"
-   id="photo3">
-
-  <img src="img/IMG-20260328-WA0017.jpg">
-
-</a>
+    <a href="game.html?heart=3" class="photo">
+      <img src="img/IMG-20260328-WA0017.jpg">
+    </a>
 
     <div class="final-section">
 
@@ -55,7 +45,7 @@
   </div>
 
   <script>
-    
+
     /* CARREGAR */
 
     const h1 = localStorage.getItem("heart1");
@@ -75,29 +65,6 @@
     if(h3){
       document.getElementById("c3").innerHTML = "❤️";
     }
-    
-    /* COLORIR FOTOS */
-
-if(h1){
-
-  document.querySelector("#photo1 img")
-    .style.filter = "grayscale(0%)";
-
-}
-
-if(h2){
-
-  document.querySelector("#photo2 img")
-    .style.filter = "grayscale(0%)";
-
-}
-
-if(h3){
-
-  document.querySelector("#photo3 img")
-    .style.filter = "grayscale(0%)";
-
-}
 
     /* FOTO FINAL */
 
