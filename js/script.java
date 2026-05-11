@@ -1,48 +1,39 @@
-const completed = JSON.parse(localStorage.getItem("completed")) || [];
+window.onload = () => {
 
-/* CORAÇÕES */
+  let completed = JSON.parse(localStorage.getItem("completed")) || [];
 
-completed.forEach(id => {
+  console.log(completed);
 
-  const heart = document.getElementById("c" + id);
+  completed.forEach(id => {
 
-  if(heart){
+    const heart = document.getElementById("c" + id);
 
-    heart.innerHTML = "❤️";
+    if(heart){
 
-    heart.classList.add("filled");
-  }
+      heart.innerHTML = "❤️";
 
-});
+      heart.style.color = "red";
 
-/* FOTO FINAL */
-
-const finalPhoto = document.getElementById("finalPhoto");
-
-/* EVOLUÇÃO */
-
-if(completed.length >= 1){
-  finalPhoto.style.opacity = "0.7";
-}
-
-if(completed.length >= 2){
-  finalPhoto.style.filter = "grayscale(30%)";
-}
-
-if(completed.length >= 3){
-
-  finalPhoto.classList.add("active");
-
-  finalPhoto.style.filter = "grayscale(0%)";
-
-  finalPhoto.style.opacity = "1";
-
-  finalPhoto.style.cursor = "pointer";
-
-  finalPhoto.addEventListener("click", () => {
-
-    window.location.href = "final.html";
+    }
 
   });
 
-}
+  const finalPhoto = document.getElementById("finalPhoto");
+
+  if(completed.length >= 3){
+
+    finalPhoto.style.filter = "grayscale(0%)";
+
+    finalPhoto.style.opacity = "1";
+
+    finalPhoto.style.cursor = "pointer";
+
+    finalPhoto.onclick = () => {
+
+      window.location.href = "final.html";
+
+    };
+
+  }
+
+};
