@@ -2,51 +2,54 @@ const heart = document.getElementById("heart");
 const timerText = document.getElementById("timer");
 const backLink = document.getElementById("backLink");
 
-const params = new URLSearchParams(window.location.search);
+/* ID */
 
-const heartId = params.get("heart");
+const urlParams = new URLSearchParams(window.location.search);
+const heartId = urlParams.get("heart");
+
+/* POSIÇÃO */
 
 let x = 100;
 let y = 100;
 
-let vx = 8;
-let vy = 8;
+let speedX = 7;
+let speedY = 7;
 
 let moving = true;
 
-let timer = 0;
-let interval;
+let seconds = 0;
+let interval = null;
 
 /* MOVIMENTO */
 
-function animate(){
+function animateHeart(){
 
   if(moving){
 
-    x += vx;
-    y += vy;
+    x += speedX;
+    y += speedY;
 
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
     const size = heart.offsetWidth;
 
-    if(x <= 0 || x + size >= w){
-      vx *= -1;
+    if(x <= 0 || x + size >= width){
+      speedX *= -1;
     }
 
-    if(y <= 0 || y + size >= h){
-      vy *= -1;
+    if(y <= 0 || y + size >= height){
+      speedY *= -1;
     }
 
     heart.style.left = x + "px";
     heart.style.top = y + "px";
   }
 
-  requestAnimationFrame(animate);
+  requestAnimationFrame(animateHeart);
 }
 
-animate();
+animateHeart();
 
 /* SEGURAR */
 
@@ -56,27 +59,28 @@ function startHold(e){
 
   moving = false;
 
-  timer = 0;
+  seconds = 0;
 
   timerText.innerHTML = "0";
 
   interval = setInterval(() => {
 
-    timer++;
+    seconds++;
 
-    timerText.innerHTML = timer;
+    timerText.innerHTML = seconds;
 
-    if(timer >= 5){
+    if(seconds >= 5){
 
       clearInterval(interval);
 
-      let completed = JSON.parse(localStorage.getItem("completed")) || [];
+      /* SALVAR */
 
-      if(!completed.includes(heartId)){
-        completed.push(heartId);
-      }
+      localStorage.setItem(
+        "heart_" + heartId,
+        "true"
+      );
 
-      localStorage.setItem("completed", JSON.stringify(completed));
+      /* ESCONDER */
 
       heart.style.display = "none";
 
@@ -92,7 +96,7 @@ function startHold(e){
 
 function stopHold(){
 
-  if(timer < 5){
+  if(seconds < 5){
 
     clearInterval(interval);
 
@@ -102,10 +106,10 @@ function stopHold(){
   }
 }
 
-heart.addEventListener("touchstart", startHold);
-
-heart.addEventListener("touchend", stopHold);
+/* EVENTOS */
 
 heart.addEventListener("mousedown", startHold);
-
 heart.addEventListener("mouseup", stopHold);
+
+heart.addEventListener("touchstart", startHold);
+heart.addEventListener("touchend", stopHold);
