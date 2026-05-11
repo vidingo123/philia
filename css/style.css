@@ -74,22 +74,15 @@ body{
 /* GAME */
 
 .game-body{
-  position:fixed;
-
-  inset:0;
-
   width:100vw;
-  height:100dvh;
-
+  height:100vh;
   overflow:hidden;
-
+  position:relative;
   background:black;
-
-  touch-action:none;
 }
 
 #heart{
-  position:fixed;
+  position:absolute;
 
   left:100px;
   top:100px;
@@ -99,8 +92,6 @@ body{
   color:red;
 
   user-select:none;
-
-  z-index:999;
 }
 
 #timer{
