@@ -124,8 +124,24 @@ params.get("heart");
 let x = 100;
 let y = 100;
 
-let vx = 5;
-let vy = 5;
+let speed = 5;
+
+/* DIFICULDADE */
+
+if(heartId == 2){
+
+  speed = 8;
+
+}
+
+if(heartId == 3){
+
+  speed = 11;
+
+}
+
+let vx = speed;
+let vy = speed;
 
 let moving = true;
 
