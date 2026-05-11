@@ -8,6 +8,30 @@
 
   <link rel="stylesheet" href="css/style.css">
 </head>
+  
+  <audio id="bgMusic" loop>
+  <source src="music/musica.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+  const music =
+    document.getElementById("bgMusic");
+
+  /* TOCAR AO PRIMEIRO TOQUE */
+
+  document.body.addEventListener(
+    "click",
+    () => {
+
+      music.play();
+
+    },
+    { once:true }
+  );
+
+</script>
+  
 <body>
 
   <div class="timeline">
