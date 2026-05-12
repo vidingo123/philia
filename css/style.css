@@ -11,7 +11,6 @@ body{
 }
 
 /* TIMELINE */
-
 .timeline{
   width:100%;
   min-height:200vh;
@@ -33,10 +32,10 @@ body{
   border-radius:20px;
   filter:grayscale(100%);
   border:3px solid white;
+  transition:0.4s;
 }
 
 /* FINAL */
-
 .final-section{
   margin-top:200px;
   display:flex;
@@ -51,11 +50,7 @@ body{
   filter:grayscale(100%);
   border:3px solid white;
   opacity:0.5;
-}
-
-.final-photo.active{
-  opacity:1;
-  filter:none;
+  transition:0.4s;
 }
 
 .hearts{
@@ -66,13 +61,9 @@ body{
 
 .filled{
   color:red;
-  filter:none;
-  opacity:1;
-  transform:scale(1.1);
 }
 
 /* GAME */
-
 .game-body{
   width:100vw;
   height:100vh;
@@ -81,17 +72,22 @@ body{
   background:black;
 }
 
+/* coração mais responsivo no mobile */
 #heart{
   position:absolute;
-
   left:100px;
   top:100px;
 
   font-size:70px;
-
   color:red;
 
   user-select:none;
+  -webkit-user-select:none;
+
+  touch-action:none;
+  cursor:pointer;
+
+  z-index:10;
 }
 
 #timer{
@@ -99,7 +95,6 @@ body{
   top:30px;
   left:50%;
   transform:translateX(-50%);
-
   font-size:50px;
   z-index:10;
 }
@@ -108,18 +103,14 @@ body{
   position:absolute;
   top:50%;
   left:50%;
-
   transform:translate(-50%, -50%);
-
   color:white;
   font-size:32px;
   text-decoration:none;
-
   display:none;
 }
 
 /* FINAL PAGE */
-
 .final-body{
   width:100vw;
   height:100vh;
