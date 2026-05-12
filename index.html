@@ -56,8 +56,7 @@
 
   </div>
 
-<script>
-window.addEventListener("pageshow", atualizar);
+  <script>
 
 function atualizar() {
 
@@ -65,25 +64,32 @@ function atualizar() {
   const h2 = localStorage.getItem("heart_2");
   const h3 = localStorage.getItem("heart_3");
 
-  if (h1 === "true") {
-    document.getElementById("c1").innerHTML = "❤️";
-    document.querySelector("#photo1 img").style.filter = "grayscale(0%)";
-  }
+  const c1 = document.getElementById("c1");
+  const c2 = document.getElementById("c2");
+  const c3 = document.getElementById("c3");
 
-  if (h2 === "true") {
-    document.getElementById("c2").innerHTML = "❤️";
-    document.querySelector("#photo2 img").style.filter = "grayscale(0%)";
-  }
-
-  if (h3 === "true") {
-    document.getElementById("c3").innerHTML = "❤️";
-    document.querySelector("#photo3 img").style.filter = "grayscale(0%)";
-  }
+  const p1 = document.querySelector("#photo1 img");
+  const p2 = document.querySelector("#photo2 img");
+  const p3 = document.querySelector("#photo3 img");
 
   const finalPhoto = document.getElementById("finalPhoto");
 
-  if (h1 === "true" && h2 === "true" && h3 === "true") {
+  if (h1 === "true") {
+    c1.innerHTML = "❤️";
+    p1.style.filter = "grayscale(0%)";
+  }
 
+  if (h2 === "true") {
+    c2.innerHTML = "❤️";
+    p2.style.filter = "grayscale(0%)";
+  }
+
+  if (h3 === "true") {
+    c3.innerHTML = "❤️";
+    p3.style.filter = "grayscale(0%)";
+  }
+
+  if (h1 === "true" && h2 === "true" && h3 === "true") {
     finalPhoto.style.filter = "grayscale(0%)";
     finalPhoto.style.opacity = "1";
     finalPhoto.style.cursor = "pointer";
@@ -93,7 +99,12 @@ function atualizar() {
     };
   }
 }
-</script>
+
+/* GARANTIA MÁXIMA: roda sempre */
+document.addEventListener("DOMContentLoaded", atualizar);
+window.addEventListener("pageshow", atualizar);
+
+  <script>
 
 </body>
 </html>
