@@ -136,35 +136,3 @@ body{
   font-size:50px;
 }
 
-.gold-photo{
-
-  border:3px solid gold !important;
-
-  filter: grayscale(0%) !important;
-
-  -webkit-filter: grayscale(0%) !important;
-
-  animation: softGlow 2s infinite alternate;
-
-}
-
-/* BRILHO SUAVE */
-
-@keyframes softGlow{
-
-  0%{
-
-    box-shadow:
-      0 0 4px rgba(255,215,0,0.35),
-      0 0 8px rgba(255,215,0,0.15);
-
-  }
-
-  100%{
-
-    box-shadow:
-      0 0 8px rgba(255,215,0,0.55),
-      0 0 14px rgba(255,215,0,0.3);
-
-  }
-}
