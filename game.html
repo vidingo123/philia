@@ -13,93 +13,95 @@
   <div id="timer">0</div>
   <div id="heart">❤️</div>
 
-  <a href="index.html" id="backLink" style="display:none;">Voltar</a>
+  <a href="index.html" id="backLink">Voltar</a>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
 
       const heart = document.getElementById("heart");
-      const timerText = document.getElementById("timer");
+      const timer = document.getElementById("timer");
       const backLink = document.getElementById("backLink");
 
-      const urlParams = new URLSearchParams(window.location.search);
-      const heartId = urlParams.get("heart");
+      const params = new URLSearchParams(window.location.search);
+      const heartId = params.get("heart");
 
       let x = 100;
       let y = 100;
-      let speedX = 7;
-      let speedY = 7;
-      let moving = true;
+      let vx = 6;
+      let vy = 6;
 
+      let moving = true;
       let seconds = 0;
       let interval = null;
 
-      /* 🔥 GARANTIA: elemento existe */
-      if (!heart) {
-        console.error("Heart não encontrado no DOM!");
-        return;
-      }
-
-      function animate() {
-        if (moving) {
-          x += speedX;
-          y += speedY;
+      /* animação */
+      function loop(){
+        if(moving){
+          x += vx;
+          y += vy;
 
           const w = window.innerWidth;
           const h = window.innerHeight;
           const size = heart.offsetWidth;
 
-          if (x <= 0 || x + size >= w) speedX *= -1;
-          if (y <= 0 || y + size >= h) speedY *= -1;
+          if(x <= 0 || x + size >= w) vx *= -1;
+          if(y <= 0 || y + size >= h) vy *= -1;
 
           heart.style.left = x + "px";
           heart.style.top = y + "px";
         }
 
-        requestAnimationFrame(animate);
+        requestAnimationFrame(loop);
       }
 
-      animate();
+      loop();
 
-      function startHold(e) {
+      /* SEGURAR (MOBILE FIX COMPLETO) */
+      function start(e){
         e.preventDefault();
 
         moving = false;
         seconds = 0;
-        timerText.innerHTML = "0";
+        timer.innerText = "0";
 
         clearInterval(interval);
 
         interval = setInterval(() => {
           seconds++;
-          timerText.innerHTML = seconds;
+          timer.innerText = seconds;
 
-          if (seconds >= 5) {
+          if(seconds >= 5){
+
             clearInterval(interval);
 
-            if (heartId) {
+            if(heartId){
               localStorage.setItem("heart_" + heartId, "true");
             }
 
             heart.style.display = "none";
-            timerText.style.display = "none";
+            timer.style.display = "none";
             backLink.style.display = "block";
           }
+
         }, 1000);
       }
 
-      function stopHold() {
-        if (seconds < 5) {
+      function stop(){
+        if(seconds < 5){
           clearInterval(interval);
           moving = true;
-          timerText.innerHTML = "0";
+          timer.innerText = "0";
         }
       }
 
-      /* 🔥 eventos mais estáveis */
-      heart.addEventListener("pointerdown", startHold);
-      heart.addEventListener("pointerup", stopHold);
-      heart.addEventListener("pointercancel", stopHold);
+      /* MOBILE + DESKTOP 100% COMPATÍVEL */
+      heart.addEventListener("touchstart", start, { passive:false });
+      heart.addEventListener("touchend", stop);
+      heart.addEventListener("touchcancel", stop);
+
+      heart.addEventListener("mousedown", start);
+      heart.addEventListener("mouseup", stop);
+
     });
   </script>
 
