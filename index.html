@@ -41,6 +41,14 @@
   </div>
 
   <script>
+
+    const nav =
+  performance.getEntriesByType("navigation")[0];
+
+if (nav && nav.type === "reload") {
+  sessionStorage.clear();
+}
+    
     function update(){
 
       const h1 = sessionStorage.getItem("heart_1");
