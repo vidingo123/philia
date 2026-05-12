@@ -13,85 +13,95 @@
   <div id="timer">0</div>
   <div id="heart">❤️</div>
 
-  <a href="index.html" id="backLink" style="display:none;">
-    Voltar
-  </a>
+  <a href="index.html" id="backLink" style="display:none;">Voltar</a>
 
   <script>
-    const heart = document.getElementById("heart");
-    const timerText = document.getElementById("timer");
-    const backLink = document.getElementById("backLink");
+    document.addEventListener("DOMContentLoaded", () => {
 
-    /* ID da URL */
-    const urlParams = new URLSearchParams(window.location.search);
-    const heartId = urlParams.get("heart");
+      const heart = document.getElementById("heart");
+      const timerText = document.getElementById("timer");
+      const backLink = document.getElementById("backLink");
 
-    /* POSIÇÃO */
-    let x = 100;
-    let y = 100;
+      const urlParams = new URLSearchParams(window.location.search);
+      const heartId = urlParams.get("heart");
 
-    let speedX = 7;
-    let speedY = 7;
+      let x = 100;
+      let y = 100;
+      let speedX = 7;
+      let speedY = 7;
+      let moving = true;
 
-    let moving = true;
+      let seconds = 0;
+      let interval = null;
 
-    let seconds = 0;
-    let interval = null;
-
-    /* MOVIMENTO */
-    function animateHeart() {
-      if (moving) {
-        x += speedX;
-        y += speedY;
-
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-
-        const size = heart.offsetWidth;
-
-        if (x <= 0 || x + size >= width) {
-          speedX *= -1;
-        }
-
-        if (y <= 0 || y + size >= height) {
-          speedY *= -1;
-        }
-
-        heart.style.left = x + "px";
-        heart.style.top = y + "px";
+      /* 🔥 GARANTIA: elemento existe */
+      if (!heart) {
+        console.error("Heart não encontrado no DOM!");
+        return;
       }
 
-      requestAnimationFrame(animateHeart);
-    }
+      function animate() {
+        if (moving) {
+          x += speedX;
+          y += speedY;
 
-    animateHeart();
+          const w = window.innerWidth;
+          const h = window.innerHeight;
+          const size = heart.offsetWidth;
 
-    /* SEGURAR */
-    function startHold(e) {
-      e.preventDefault();
+          if (x <= 0 || x + size >= w) speedX *= -1;
+          if (y <= 0 || y + size >= h) speedY *= -1;
 
-      moving = false;
-      seconds = 0;
-      timerText.innerHTML = "0";
-
-      clearInterval(interval);
-
-      interval = setInterval(() => {
-        seconds++;
-        timerText.innerHTML = seconds;
-
-        if (seconds >= 5) {
-          clearInterval(interval);
-
-          /* 🔴 SALVAR COM SEGURANÇA */
-          if (heartId) {
-            localStorage.setItem("heart_" + heartId, "true");
-          }
-
-          /* ESCONDER ELEMENTOS */
-          heart.style.display = "none";
-          timerText.style.display = "none";
-
-          backLink.style.display = "block";
+          heart.style.left = x + "px";
+          heart.style.top = y + "px";
         }
-      }, 1000
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      function startHold(e) {
+        e.preventDefault();
+
+        moving = false;
+        seconds = 0;
+        timerText.innerHTML = "0";
+
+        clearInterval(interval);
+
+        interval = setInterval(() => {
+          seconds++;
+          timerText.innerHTML = seconds;
+
+          if (seconds >= 5) {
+            clearInterval(interval);
+
+            if (heartId) {
+              localStorage.setItem("heart_" + heartId, "true");
+            }
+
+            heart.style.display = "none";
+            timerText.style.display = "none";
+            backLink.style.display = "block";
+          }
+        }, 1000);
+      }
+
+      function stopHold() {
+        if (seconds < 5) {
+          clearInterval(interval);
+          moving = true;
+          timerText.innerHTML = "0";
+        }
+      }
+
+      /* 🔥 eventos mais estáveis */
+      heart.addEventListener("pointerdown", startHold);
+      heart.addEventListener("pointerup", stopHold);
+      heart.addEventListener("pointercancel", stopHold);
+    });
+  </script>
+
+</body>
+</html>
