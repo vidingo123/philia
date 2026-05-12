@@ -58,65 +58,72 @@
 
   <script>
 
-  const h1 = sessionStorage.getItem("heart1");
-  const h2 = sessionStorage.getItem("heart2");
-  const h3 = sessionStorage.getItem("heart3");
+    /* CARREGAR */
 
-  /* FOTO 1 */
+    const h1 = sessionStorage.getItem("heart1");
+    const h2 = sessionStorage.getItem("heart2");
+    const h3 = sessionStorage.getItem("heart3");
 
-  if(h1){
+    /* CORAÇÕES */
 
-    document.getElementById("c1").innerHTML = "❤️";
+    if(h1){
+      document.getElementById("c1").innerHTML = "❤️";
+    }
 
-    document.querySelector("#photo1 img")
-  .style.border = "4px solid gold";
+    if(h2){
+      document.getElementById("c2").innerHTML = "❤️";
+    }
 
-  /* FOTO 2 */
+    if(h3){
+      document.getElementById("c3").innerHTML = "❤️";
+    }
+    
+/* COLORIR FOTOS */
 
-  if(h2){
+if(h1){
 
-    document.getElementById("c2").innerHTML = "❤️";
+  document.querySelector("#photo1 img")
+    .style.filter = "grayscale(0%)";
 
-    document.querySelector("#photo2 img")
-  .style.border = "4px solid gold";
+}
 
-  }
+if(h2){
 
-  /* FOTO 3 */
+  document.querySelector("#photo2 img")
+    .style.filter = "grayscale(0%)";
 
-  if(h3){
+}
 
-    document.getElementById("c3").innerHTML = "❤️";
+if(h3){
 
-    document.querySelector("#photo3 img")
-  .style.border = "4px solid gold";
+  document.querySelector("#photo3 img")
+    .style.filter = "grayscale(0%)";
 
-  }
+}
+    
+    /* FOTO FINAL */
 
-  /* FOTO FINAL */
+    const finalPhoto =
+      document.getElementById("finalPhoto");
 
-  const finalPhoto =
-    document.getElementById("finalPhoto");
+    if(h1 && h2 && h3){
 
-  if(h1 && h2 && h3){
+      finalPhoto.style.filter = "grayscale(0%)";
 
-    finalPhoto.style.filter =
-      "grayscale(0%)";
+      finalPhoto.style.opacity = "1";
 
-    finalPhoto.style.opacity = "1";
+      finalPhoto.style.cursor = "pointer";
 
-    finalPhoto.style.cursor = "pointer";
+      finalPhoto.onclick = () => {
 
-    finalPhoto.onclick = () => {
+        window.location.href = "final.html";
 
-      window.location.href =
-        "final.html";
+      };
 
-    };
-
-  }
+    }
 
   </script>
 
 </body>
 </html>
+
