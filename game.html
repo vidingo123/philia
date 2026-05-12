@@ -75,7 +75,10 @@
             clearInterval(interval);
 
             if(heartId){
-              localStorage.setItem("heart_" + heartId, "true");
+              sessionStorage.setItem(
+  "heart_" + heartId,
+  "true"
+);
             }
 
             heart.style.display = "none";
