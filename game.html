@@ -2,165 +2,96 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coração</title>
 
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body class="game-body">
 
   <div id="timer">0</div>
-
   <div id="heart">❤️</div>
 
-  <a href="index.html"
-     id="backLink"
-     style="display:none;">
-
-     Voltar
-
+  <a href="index.html" id="backLink" style="display:none;">
+    Voltar
   </a>
 
   <script>
+    const heart = document.getElementById("heart");
+    const timerText = document.getElementById("timer");
+    const backLink = document.getElementById("backLink");
 
-    const heart =
-      document.getElementById("heart");
+    /* ID da URL */
+    const urlParams = new URLSearchParams(window.location.search);
+    const heartId = urlParams.get("heart");
 
-    const timer =
-      document.getElementById("timer");
-
-    const backLink =
-      document.getElementById("backLink");
-
-    /* ID */
-
-    const params =
-      new URLSearchParams(window.location.search);
-
-    const heartId =
-      params.get("heart");
-
-    /* MOVIMENTO */
-
+    /* POSIÇÃO */
     let x = 100;
     let y = 100;
 
-    let vx = 8;
-    let vy = 8;
+    let speedX = 7;
+    let speedY = 7;
 
     let moving = true;
 
-    function animate(){
+    let seconds = 0;
+    let interval = null;
 
-      if(moving){
+    /* MOVIMENTO */
+    function animateHeart() {
+      if (moving) {
+        x += speedX;
+        y += speedY;
 
-        x += vx;
-        y += vy;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
 
-        const w = window.innerWidth;
-        const h = window.innerHeight;
+        const size = heart.offsetWidth;
 
-        const heartWidth = heart.offsetWidth;
-const heartHeight = heart.offsetHeight;
+        if (x <= 0 || x + size >= width) {
+          speedX *= -1;
+        }
 
-/* LADOS */
-
-if(x <= 0 || x + heartWidth >= w){
-  vx *= -1;
-}
-
-/* TOPO E BAIXO */
-
-if(y <= 0 || y + heartHeight >= h){
-  vy *= -1;
-}
+        if (y <= 0 || y + size >= height) {
+          speedY *= -1;
+        }
 
         heart.style.left = x + "px";
         heart.style.top = y + "px";
       }
 
-      requestAnimationFrame(animate);
+      requestAnimationFrame(animateHeart);
     }
 
-    animate();
+    animateHeart();
 
     /* SEGURAR */
-
-    let seconds = 0;
-
-    let interval;
-
-    function start(){
+    function startHold(e) {
+      e.preventDefault();
 
       moving = false;
-
       seconds = 0;
+      timerText.innerHTML = "0";
+
+      clearInterval(interval);
 
       interval = setInterval(() => {
-
         seconds++;
+        timerText.innerHTML = seconds;
 
-        timer.innerHTML = seconds;
-
-        if(seconds >= 5){
-
+        if (seconds >= 5) {
           clearInterval(interval);
 
-          /* SALVAR */
+          /* 🔴 SALVAR COM SEGURANÇA */
+          if (heartId) {
+            localStorage.setItem("heart_" + heartId, "true");
+          }
 
-          sessionStorage.setItem(
-            "heart" + heartId,
-            "true"
-          );
-
-          /* ESCONDER */
-
+          /* ESCONDER ELEMENTOS */
           heart.style.display = "none";
-
-          timer.style.display = "none";
+          timerText.style.display = "none";
 
           backLink.style.display = "block";
         }
-
-      }, 1000);
-    }
-
-    function stop(){
-
-      if(seconds < 5){
-
-        clearInterval(interval);
-
-        moving = true;
-
-        timer.innerHTML = "0";
-      }
-    }
-
-    heart.addEventListener(
-      "mousedown",
-      start
-    );
-
-    heart.addEventListener(
-      "mouseup",
-      stop
-    );
-
-    heart.addEventListener(
-      "touchstart",
-      start
-    );
-
-    heart.addEventListener(
-      "touchend",
-      stop
-    );
-
-  </script>
-
-</body>
-</html>
+      }, 1000
