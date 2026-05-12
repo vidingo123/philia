@@ -56,73 +56,44 @@
 
   </div>
 
-  <script>
+<script>
+window.addEventListener("pageshow", atualizar);
 
-    /* CARREGAR */
+function atualizar() {
 
-    const h1 = sessionStorage.getItem("heart1");
-    const h2 = sessionStorage.getItem("heart2");
-    const h3 = sessionStorage.getItem("heart3");
+  const h1 = localStorage.getItem("heart_1");
+  const h2 = localStorage.getItem("heart_2");
+  const h3 = localStorage.getItem("heart_3");
 
-    /* CORAÇÕES */
+  if (h1 === "true") {
+    document.getElementById("c1").innerHTML = "❤️";
+    document.querySelector("#photo1 img").style.filter = "grayscale(0%)";
+  }
 
-    if(h1){
-      document.getElementById("c1").innerHTML = "❤️";
-    }
+  if (h2 === "true") {
+    document.getElementById("c2").innerHTML = "❤️";
+    document.querySelector("#photo2 img").style.filter = "grayscale(0%)";
+  }
 
-    if(h2){
-      document.getElementById("c2").innerHTML = "❤️";
-    }
+  if (h3 === "true") {
+    document.getElementById("c3").innerHTML = "❤️";
+    document.querySelector("#photo3 img").style.filter = "grayscale(0%)";
+  }
 
-    if(h3){
-      document.getElementById("c3").innerHTML = "❤️";
-    }
-    
-/* COLORIR FOTOS */
+  const finalPhoto = document.getElementById("finalPhoto");
 
-if(h1){
+  if (h1 === "true" && h2 === "true" && h3 === "true") {
 
-  document.querySelector("#photo1 img")
-    .style.filter = "grayscale(0%)";
+    finalPhoto.style.filter = "grayscale(0%)";
+    finalPhoto.style.opacity = "1";
+    finalPhoto.style.cursor = "pointer";
 
+    finalPhoto.onclick = () => {
+      window.location.href = "final.html";
+    };
+  }
 }
-
-if(h2){
-
-  document.querySelector("#photo2 img")
-    .style.filter = "grayscale(0%)";
-
-}
-
-if(h3){
-
-  document.querySelector("#photo3 img")
-    .style.filter = "grayscale(0%)";
-
-}
-    
-    /* FOTO FINAL */
-
-    const finalPhoto =
-      document.getElementById("finalPhoto");
-
-    if(h1 && h2 && h3){
-
-      finalPhoto.style.filter = "grayscale(0%)";
-
-      finalPhoto.style.opacity = "1";
-
-      finalPhoto.style.cursor = "pointer";
-
-      finalPhoto.onclick = () => {
-
-        window.location.href = "final.html";
-
-      };
-
-    }
-
-  </script>
+</script>
 
 </body>
 </html>
