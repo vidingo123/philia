@@ -135,34 +135,3 @@ body{
 .final-body h1{
   font-size:50px;
 }
-
-.gold-photo{
-
-  border:4px solid gold !important;
-
-  animation: glow 1.5s infinite alternate;
-
-}
-
-/* BRILHO */
-
-@keyframes glow{
-
-  from{
-
-    box-shadow:
-      0 0 5px gold,
-      0 0 10px gold,
-      0 0 20px gold;
-
-  }
-
-  to{
-
-    box-shadow:
-      0 0 10px gold,
-      0 0 25px gold,
-      0 0 40px gold;
-
-  }
-}
