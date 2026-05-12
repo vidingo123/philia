@@ -3,38 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Memórias</title>
 
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
   <div class="timeline">
 
-    <a href="game.html?heart=1"
-   class="photo"
-   id="photo1">
+    <a href="game.html?heart=1" class="photo" id="photo1">
+      <img src="img/20260328_101205.jpg">
+    </a>
 
-  <img src="img/20260328_101205.jpg">
+    <a href="game.html?heart=2" class="photo" id="photo2">
+      <img src="img/20260328_101155.jpg">
+    </a>
 
-</a>
-
-<a href="game.html?heart=2"
-   class="photo"
-   id="photo2">
-
-  <img src="img/20260328_101155.jpg">
-
-</a>
-
-<a href="game.html?heart=3"
-   class="photo"
-   id="photo3">
-
-  <img src="img/IMG-20260328-WA0017.jpg">
-
-</a>
+    <a href="game.html?heart=3" class="photo" id="photo3">
+      <img src="img/IMG-20260328-WA0017.jpg">
+    </a>
 
     <div class="final-section">
 
@@ -43,13 +31,9 @@
            id="finalPhoto">
 
       <div class="hearts">
-
         <span id="c1">🤍</span>
-
         <span id="c2">🤍</span>
-
         <span id="c3">🤍</span>
-
       </div>
 
     </div>
@@ -57,55 +41,52 @@
   </div>
 
   <script>
+    function update(){
 
-function atualizar() {
+      const h1 = localStorage.getItem("heart_1");
+      const h2 = localStorage.getItem("heart_2");
+      const h3 = localStorage.getItem("heart_3");
 
-  const h1 = localStorage.getItem("heart_1");
-  const h2 = localStorage.getItem("heart_2");
-  const h3 = localStorage.getItem("heart_3");
+      const c1 = document.getElementById("c1");
+      const c2 = document.getElementById("c2");
+      const c3 = document.getElementById("c3");
 
-  const c1 = document.getElementById("c1");
-  const c2 = document.getElementById("c2");
-  const c3 = document.getElementById("c3");
+      const p1 = document.querySelector("#photo1 img");
+      const p2 = document.querySelector("#photo2 img");
+      const p3 = document.querySelector("#photo3 img");
 
-  const p1 = document.querySelector("#photo1 img");
-  const p2 = document.querySelector("#photo2 img");
-  const p3 = document.querySelector("#photo3 img");
+      const finalPhoto = document.getElementById("finalPhoto");
 
-  const finalPhoto = document.getElementById("finalPhoto");
+      if(h1 === "true"){
+        c1.innerHTML = "❤️";
+        p1.style.filter = "grayscale(0%)";
+      }
 
-  if (h1 === "true") {
-    c1.innerHTML = "❤️";
-    p1.style.filter = "grayscale(0%)";
-  }
+      if(h2 === "true"){
+        c2.innerHTML = "❤️";
+        p2.style.filter = "grayscale(0%)";
+      }
 
-  if (h2 === "true") {
-    c2.innerHTML = "❤️";
-    p2.style.filter = "grayscale(0%)";
-  }
+      if(h3 === "true"){
+        c3.innerHTML = "❤️";
+        p3.style.filter = "grayscale(0%)";
+      }
 
-  if (h3 === "true") {
-    c3.innerHTML = "❤️";
-    p3.style.filter = "grayscale(0%)";
-  }
+      if(h1 === "true" && h2 === "true" && h3 === "true"){
+        finalPhoto.style.filter = "grayscale(0%)";
+        finalPhoto.style.opacity = "1";
+        finalPhoto.style.cursor = "pointer";
 
-  if (h1 === "true" && h2 === "true" && h3 === "true") {
-    finalPhoto.style.filter = "grayscale(0%)";
-    finalPhoto.style.opacity = "1";
-    finalPhoto.style.cursor = "pointer";
+        finalPhoto.onclick = () => {
+          window.location.href = "final.html";
+        };
+      }
+    }
 
-    finalPhoto.onclick = () => {
-      window.location.href = "final.html";
-    };
-  }
-}
-
-/* GARANTIA MÁXIMA: roda sempre */
-document.addEventListener("DOMContentLoaded", atualizar);
-window.addEventListener("pageshow", atualizar);
-
-  <script>
+    update();
+    window.addEventListener("pageshow", update);
+    window.addEventListener("focus", update);
+  </script>
 
 </body>
 </html>
-
